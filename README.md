@@ -1,6 +1,8 @@
 # CST238SRS03
 Chaos
 
+This is a 2x SRS.
+
 Purpose:  
 
 - Learn to use graphics in a user interface.  
