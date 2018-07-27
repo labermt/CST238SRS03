@@ -1,5 +1,5 @@
 # CST238SRS03
-The Chaos Game
+Chaos
 
 Purpose:  
 
@@ -25,7 +25,7 @@ Draw Algorithm:
 
 - Randomly pick one of the vertices.  
 
-- Randomly pick the next vertex using the restriction if any exists.  
+- Randomly pick the next vertex using any user specified restrictions.  
 
 - Move the user selected fraction [0.0, 1.0] towards the randomly selected and possibly restricted vertex.  
 
