@@ -42,4 +42,6 @@ Hints:
 - See Canvas.drawPoint documentation.  
 - See https://developer.android.com/guide/topics/ui/custom-components.html.  
 - You will want to implement the derived ctors as described in:  
-  https://developer.android.com/reference/android/view/View#public-constructors_4.  
+  https://developer.android.com/reference/android/view/View#public-constructors_4. 
+- A technique for sharing information between fragments:  
+  https://developer.android.com/topic/libraries/architecture/viewmodel#sharing  
