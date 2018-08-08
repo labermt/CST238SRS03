@@ -10,18 +10,21 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.ArrayList;
+
 /**
  * TODO: document your custom view class.
  */
 public class DrawArea extends View {
-    private String mExampleString; // TODO: use a default from R.string...
-    private int mExampleColor = Color.RED; // TODO: use a default from R.color...
+    private int mExampleColor = Color.BLACK; // TODO: use a default from R.color...
     private float mExampleDimension = 0; // TODO: use a default from R.dimen...
     private Drawable mExampleDrawable;
+    private Paint mPaint;
 
-    private TextPaint mTextPaint;
-    private float mTextWidth;
-    private float mTextHeight;
+//    @Override
+//    public ArrayList<View> getFocusables(int direction) {
+//        return super.getFocusables(direction);
+//    }
 
     public DrawArea(Context context) {
         super(context);
@@ -43,41 +46,42 @@ public class DrawArea extends View {
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.DrawArea, defStyle, 0);
 
-        mExampleString = a.getString(
-                R.styleable.DrawArea_exampleString);
-        mExampleColor = a.getColor(
-                R.styleable.DrawArea_exampleColor,
-                mExampleColor);
+//        mExampleString = a.getString(
+//                R.styleable.DrawArea_exampleString);
+//        mExampleColor = a.getColor(
+//                R.styleable.DrawArea_exampleColor,
+//                mExampleColor);
         // Use getDimensionPixelSize or getDimensionPixelOffset when dealing with
         // values that should fall on pixel boundaries.
         mExampleDimension = a.getDimension(
                 R.styleable.DrawArea_exampleDimension,
                 mExampleDimension);
 
-        if (a.hasValue(R.styleable.DrawArea_exampleDrawable)) {
-            mExampleDrawable = a.getDrawable(
-                    R.styleable.DrawArea_exampleDrawable);
-            mExampleDrawable.setCallback(this);
-        }
+//        if (a.hasValue(R.styleable.DrawArea_exampleDrawable)) {
+//            mExampleDrawable = a.getDrawable(
+//                    R.styleable.DrawArea_exampleDrawable);
+//            mExampleDrawable.setCallback(this);
+//        }
 
         a.recycle();
 
         // Set up a default TextPaint object
-        mTextPaint = new TextPaint();
-        mTextPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
-        mTextPaint.setTextAlign(Paint.Align.LEFT);
+        mPaint = new Paint();
+        mPaint.setStrokeWidth(20);
+//        mTextPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
+//        mTextPaint.setTextAlign(Paint.Align.LEFT);
 
         // Update TextPaint and text measurements from attributes
-        invalidateTextPaintAndMeasurements();
+        invalidatePaintAndMeasurements();
     }
 
-    private void invalidateTextPaintAndMeasurements() {
-        mTextPaint.setTextSize(mExampleDimension);
-        mTextPaint.setColor(mExampleColor);
-        mTextWidth = mTextPaint.measureText(mExampleString);
-
-        Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
-        mTextHeight = fontMetrics.bottom;
+    private void invalidatePaintAndMeasurements() {
+//        mTextPaint.setTextSize(mExampleDimension);
+        mPaint.setColor(mExampleColor);
+//        mTextWidth = mTextPaint.measureText(mExampleString);
+//
+//        Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
+//        mTextHeight = fontMetrics.bottom;
     }
 
     @Override
@@ -93,9 +97,12 @@ public class DrawArea extends View {
 
         int contentWidth = getWidth() - paddingLeft - paddingRight;
         int contentHeight = getHeight() - paddingTop - paddingBottom;
-
+        int contentCenterW = (contentWidth / 2);
+        int contentCenterH = (contentHeight / 2);
         // Draw the text.
-        canvas.drawPoint(1,2,mTextPaint);
+        canvas.drawPoint(contentCenterW,(contentHeight / 4), mPaint);
+        canvas.drawPoint((contentCenterW - (contentCenterW / 2)),(contentCenterH + (contentCenterH / 2)), mPaint);
+        canvas.drawPoint((contentCenterW + (contentCenterW / 2)),(contentCenterH + (contentCenterH / 2)), mPaint);
 
         // Draw the example drawable on top of the text.
         if (mExampleDrawable != null) {
@@ -110,9 +117,9 @@ public class DrawArea extends View {
      *
      * @return The example string attribute value.
      */
-    public String getExampleString() {
-        return mExampleString;
-    }
+//    public String getExampleString() {
+//        return mExampleString;
+//    }
 
     /**
      * Sets the view's example string attribute value. In the example view, this string
@@ -121,8 +128,8 @@ public class DrawArea extends View {
      * @param exampleString The example string attribute value to use.
      */
     public void setExampleString(String exampleString) {
-        mExampleString = exampleString;
-        invalidateTextPaintAndMeasurements();
+//        mExampleString = exampleString;
+        invalidatePaintAndMeasurements();
     }
 
     /**
@@ -142,7 +149,7 @@ public class DrawArea extends View {
      */
     public void setExampleColor(int exampleColor) {
         mExampleColor = exampleColor;
-        invalidateTextPaintAndMeasurements();
+        invalidatePaintAndMeasurements();
     }
 
     /**
@@ -162,7 +169,7 @@ public class DrawArea extends View {
      */
     public void setExampleDimension(float exampleDimension) {
         mExampleDimension = exampleDimension;
-        invalidateTextPaintAndMeasurements();
+        invalidatePaintAndMeasurements();
     }
 
     /**

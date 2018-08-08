@@ -113,8 +113,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.example.rubyf.chaos.DrawArea
-        android:id="@+id/button"
-        android:layout_width="367dp"
+        android:layout_width="match_parent"
         android:layout_height="339dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -122,9 +121,16 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:paddingBottom="40dp"
+        android:paddingLeft="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:exampleColor="#33b5e5"
+        app:exampleDimension="24sp"
+        app:exampleDrawable="@android:drawable/ic_menu_add"
+        app:exampleString="Hello, DrawArea" />
+    <!--android:background="#ccc"-->
 
 </android.support.constraint.ConstraintLayout>
