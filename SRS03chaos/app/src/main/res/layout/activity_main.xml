@@ -15,4 +15,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.example.capti.srs03_chaos.PointMapper
+    android:layout_width="match_parent"
+    android:layout_height="414dp" />
+
 </android.support.constraint.ConstraintLayout>
