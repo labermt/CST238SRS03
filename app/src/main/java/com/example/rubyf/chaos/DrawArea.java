@@ -6,11 +6,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
+import com.example.rubyf.chaos.Point;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * TODO: document your custom view class.
@@ -20,11 +21,10 @@ public class DrawArea extends View {
     private float mExampleDimension = 0; // TODO: use a default from R.dimen...
     private Drawable mExampleDrawable;
     private Paint mPaint;
-
-//    @Override
-//    public ArrayList<View> getFocusables(int direction) {
-//        return super.getFocusables(direction);
-//    }
+    private Point center = new Point();
+    public ArrayList<Point> defaultPoints = new ArrayList();
+    public Stack points = new Stack();
+    public int verts;
 
     public DrawArea(Context context) {
         super(context);
@@ -46,42 +46,29 @@ public class DrawArea extends View {
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.DrawArea, defStyle, 0);
 
-//        mExampleString = a.getString(
-//                R.styleable.DrawArea_exampleString);
-//        mExampleColor = a.getColor(
-//                R.styleable.DrawArea_exampleColor,
-//                mExampleColor);
-        // Use getDimensionPixelSize or getDimensionPixelOffset when dealing with
-        // values that should fall on pixel boundaries.
         mExampleDimension = a.getDimension(
                 R.styleable.DrawArea_exampleDimension,
                 mExampleDimension);
-
-//        if (a.hasValue(R.styleable.DrawArea_exampleDrawable)) {
-//            mExampleDrawable = a.getDrawable(
-//                    R.styleable.DrawArea_exampleDrawable);
-//            mExampleDrawable.setCallback(this);
-//        }
 
         a.recycle();
 
         // Set up a default TextPaint object
         mPaint = new Paint();
         mPaint.setStrokeWidth(20);
-//        mTextPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
-//        mTextPaint.setTextAlign(Paint.Align.LEFT);
 
         // Update TextPaint and text measurements from attributes
         invalidatePaintAndMeasurements();
     }
 
     private void invalidatePaintAndMeasurements() {
-//        mTextPaint.setTextSize(mExampleDimension);
         mPaint.setColor(mExampleColor);
-//        mTextWidth = mTextPaint.measureText(mExampleString);
-//
-//        Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
-//        mTextHeight = fontMetrics.bottom;
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        center.setX(w/2);
+        center.setY(h/2);
+        setDefaultPoints();
     }
 
     @Override
@@ -97,12 +84,11 @@ public class DrawArea extends View {
 
         int contentWidth = getWidth() - paddingLeft - paddingRight;
         int contentHeight = getHeight() - paddingTop - paddingBottom;
-        int contentCenterW = (contentWidth / 2);
-        int contentCenterH = (contentHeight / 2);
-        // Draw the text.
-        canvas.drawPoint(contentCenterW,(contentHeight / 4), mPaint);
-        canvas.drawPoint((contentCenterW - (contentCenterW / 2)),(contentCenterH + (contentCenterH / 2)), mPaint);
-        canvas.drawPoint((contentCenterW + (contentCenterW / 2)),(contentCenterH + (contentCenterH / 2)), mPaint);
+
+        // Draw the default points.
+        for (int i = 0; i < defaultPoints.size(); i++) {
+            canvas.drawPoint(defaultPoints.get(i).getX(), defaultPoints.get(i).getY(), mPaint);
+        }
 
         // Draw the example drawable on top of the text.
         if (mExampleDrawable != null) {
@@ -112,82 +98,57 @@ public class DrawArea extends View {
         }
     }
 
-    /**
-     * Gets the example string attribute value.
-     *
-     * @return The example string attribute value.
-     */
-//    public String getExampleString() {
-//        return mExampleString;
-//    }
-
-    /**
-     * Sets the view's example string attribute value. In the example view, this string
-     * is the text to draw.
-     *
-     * @param exampleString The example string attribute value to use.
-     */
-    public void setExampleString(String exampleString) {
-//        mExampleString = exampleString;
-        invalidatePaintAndMeasurements();
-    }
-
-    /**
-     * Gets the example color attribute value.
-     *
-     * @return The example color attribute value.
-     */
     public int getExampleColor() {
         return mExampleColor;
     }
 
-    /**
-     * Sets the view's example color attribute value. In the example view, this color
-     * is the font color.
-     *
-     * @param exampleColor The example color attribute value to use.
-     */
     public void setExampleColor(int exampleColor) {
         mExampleColor = exampleColor;
         invalidatePaintAndMeasurements();
     }
 
-    /**
-     * Gets the example dimension attribute value.
-     *
-     * @return The example dimension attribute value.
-     */
+    public Point getCenter() {
+        return center;
+    }
+//
+//    public void setCenter(int x, int y) {
+//        center.setX(x);
+//        center.setY(y);
+//    }
+
     public float getExampleDimension() {
         return mExampleDimension;
     }
 
-    /**
-     * Sets the view's example dimension attribute value. In the example view, this dimension
-     * is the font size.
-     *
-     * @param exampleDimension The example dimension attribute value to use.
-     */
     public void setExampleDimension(float exampleDimension) {
         mExampleDimension = exampleDimension;
         invalidatePaintAndMeasurements();
     }
 
-    /**
-     * Gets the example drawable attribute value.
-     *
-     * @return The example drawable attribute value.
-     */
     public Drawable getExampleDrawable() {
         return mExampleDrawable;
     }
 
-    /**
-     * Sets the view's example drawable attribute value. In the example view, this drawable is
-     * drawn above the text.
-     *
-     * @param exampleDrawable The example drawable attribute value to use.
-     */
     public void setExampleDrawable(Drawable exampleDrawable) {
         mExampleDrawable = exampleDrawable;
     }
+
+    public void setVerts(int numVerts){
+        verts = numVerts;
+    }
+
+    public void setDefaultPoints() {
+        int cx = center.getX();
+        int cy = center.getY();
+        int radius = (cx < cy) ? cx : cy;
+        double angle = (360 / verts);
+        for (int theta = 0; theta < 360; theta += angle) {
+            double rdegrees = Math.toRadians(theta);
+            int x = (int) (radius * Math.cos(rdegrees));
+            int y = (int) (radius * Math.sin(rdegrees));
+            Point point = new Point((x + cx), (y + cy));
+            defaultPoints.add(point);
+        }
+    }
+
 }

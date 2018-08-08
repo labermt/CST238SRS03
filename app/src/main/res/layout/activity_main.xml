@@ -64,7 +64,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/num_verticies"
+        android:id="@+id/verticies"
         android:layout_width="160dp"
         android:layout_height="30dp"
         android:layout_marginBottom="8dp"
@@ -79,7 +79,7 @@
         android:id="@+id/divider"
         android:layout_width="368dp"
         android:layout_height="1dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="36dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -109,12 +109,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="@string/vert_lable"
-        app:layout_constraintBottom_toTopOf="@+id/num_verticies"
+        app:layout_constraintBottom_toTopOf="@+id/verticies"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.example.rubyf.chaos.DrawArea
+        android:id="@+id/drawCanvas"
         android:layout_width="match_parent"
-        android:layout_height="339dp"
+        android:layout_height="310dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -123,14 +124,31 @@
         android:layout_marginTop="8dp"
         android:paddingBottom="40dp"
         android:paddingLeft="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/divider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:exampleColor="#33b5e5"
         app:exampleDimension="24sp"
         app:exampleDrawable="@android:drawable/ic_menu_add"
-        app:exampleString="Hello, DrawArea" />
+        app:exampleString="Hello, DrawArea"
+        app:layout_constraintBottom_toBottomOf="@+id/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/draw"
+        android:layout_width="85dp"
+        android:layout_height="37dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Draw"
+        app:layout_constraintBottom_toTopOf="@+id/verticies"
+        app:layout_constraintEnd_toStartOf="@+id/verticies_label"
+        app:layout_constraintStart_toEndOf="@+id/iteration_label"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
     <!--android:background="#ccc"-->
 
 </android.support.constraint.ConstraintLayout>
