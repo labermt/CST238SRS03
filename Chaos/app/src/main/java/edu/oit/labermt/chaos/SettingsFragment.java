@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.support.annotation.Nullable;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,14 +63,14 @@ public class SettingsFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    DataComm mCallback;
-
+    //DataComm mCallback;
+/*
     public interface DataComm{
         public void setMyPercent(float x);
         public float getMyPercent();
     }
-
-    private SharedViewModel model;
+*/
+    //private SharedViewModel model;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,7 +87,10 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        final View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        final SharedViewModel sharedViewModel_;
+        sharedViewModel_ = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+
         final SeekBar PercentSeekBar = view.findViewById(R.id.seekBar);
         final TextView PercentSeekBarValue = (TextView)view.findViewById(R.id.PercentTextView);
 
@@ -93,7 +100,9 @@ public class SettingsFragment extends Fragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressChangedValue = (float)progress/10;
                 PercentSeekBarValue.setText(String.valueOf(progressChangedValue));
-                //mCallback.setMyPercent(progressChangedValue);
+                SharedViewModel.UIData uiData = new SharedViewModel.UIData();
+                uiData.setPercent(progressChangedValue);
+                sharedViewModel_.uiDataLiveData_.postValue(uiData);
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -103,7 +112,14 @@ public class SettingsFragment extends Fragment {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-
+        sharedViewModel_.uiDataLiveData_.observe(getActivity(), new Observer<SharedViewModel.UIData>() {
+            @Override
+            public void onChanged(@Nullable SharedViewModel.UIData value) {
+                if (value != null) {
+                    // mSeekBar.setProgress(value);
+                }
+            }
+        });
         return view;
     }
 
@@ -117,6 +133,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        /*
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -126,6 +143,7 @@ public class SettingsFragment extends Fragment {
         if(context instanceof DataComm){
             mCallback = (DataComm) context;
         }
+        */
     }
 
     @Override
