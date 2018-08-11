@@ -6,9 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -93,6 +96,7 @@ public class SettingsFragment extends Fragment {
 
         final SeekBar PercentSeekBar = view.findViewById(R.id.seekBar);
         final TextView PercentSeekBarValue = (TextView)view.findViewById(R.id.PercentTextView);
+        final EditText IterEnter = view.findViewById(R.id.editTextIter);
 
         PercentSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             float progressChangedValue = .5f;
@@ -112,6 +116,34 @@ public class SettingsFragment extends Fragment {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+
+        IterEnter.addTextChangedListener( new TextWatcher()
+        {
+            int iterationsChanged = 50;
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (IterEnter.getText().toString().length() <= 0) {
+                    IterEnter.setError("You must enter a number");
+                } else {
+                    IterEnter.setError(null);
+                    SharedViewModel.UIData uiData = new SharedViewModel.UIData();
+                    String s_value = IterEnter.getText().toString();
+                    uiData.setIterations(Integer.parseInt(s_value));
+                    sharedViewModel_.uiDataLiveData_.postValue(uiData);
+
+                }
+            }
+        });
+
+
         sharedViewModel_.uiDataLiveData_.observe(getActivity(), new Observer<SharedViewModel.UIData>() {
             @Override
             public void onChanged(@Nullable SharedViewModel.UIData value) {

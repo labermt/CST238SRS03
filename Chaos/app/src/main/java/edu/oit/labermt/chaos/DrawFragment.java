@@ -74,10 +74,10 @@ public class DrawFragment extends Fragment {
             public void onChanged(@Nullable SharedViewModel.UIData value) {
                 if (value != null) {
                     final int s_vertices = value.getVertices();
+                    final int s_iter = value.getIterations();
                     final float s_percent = value.getPercent();
-                    final String text = "Vertices: " + String.valueOf(s_vertices) + " Percent: " + String.valueOf(s_percent);
+                    final String text = "Iterations: " + String.valueOf(s_iter) + " Vertices: " + String.valueOf(s_vertices) + " Percent: " + String.valueOf(s_percent);
                     textView_.setText(text);
-                    // mSeekBar.setProgress(value);
                 }
             }
         });

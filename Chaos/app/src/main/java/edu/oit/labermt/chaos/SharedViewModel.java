@@ -10,6 +10,7 @@ public class SharedViewModel extends ViewModel {
     public static class UIData {
         private int vertices = 42;
         private float percent = .5f;
+        private int iterations = 50;
         public int getVertices()
         {
             return vertices;
@@ -25,6 +26,14 @@ public class SharedViewModel extends ViewModel {
         public void setPercent(final float value)
         {
             percent = value;
+        }
+        public int getIterations()
+        {
+            return iterations;
+        }
+        public void setIterations(final int value)
+        {
+            iterations = value;
         }
     }
     public MutableLiveData<UIData> uiDataLiveData_ = new MutableLiveData<>();
