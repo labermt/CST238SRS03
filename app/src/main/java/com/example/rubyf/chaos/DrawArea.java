@@ -110,11 +110,6 @@ public class DrawArea extends View {
     public Point getCenter() {
         return center;
     }
-//
-//    public void setCenter(int x, int y) {
-//        center.setX(x);
-//        center.setY(y);
-//    }
 
     public float getExampleDimension() {
         return mExampleDimension;

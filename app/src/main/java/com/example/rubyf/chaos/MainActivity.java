@@ -2,6 +2,10 @@ package com.example.rubyf.chaos;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Spinner color;
     private TextView verts;
     private TextView iters;
+    private Button go;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +46,62 @@ public class MainActivity extends AppCompatActivity {
         iters = findViewById(R.id.iterations);
         verts = findViewById(R.id.verticies);
         area = findViewById(R.id.drawCanvas);
-        area.setVerts(num_verticiesNum);
+        go = findViewById(R.id.draw);
+
+        go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int tempInt = tryParseInt(verts.getText().toString());
+                if(tempInt != -1){
+                    num_verticiesNum = tempInt;
+                }
+                tempInt = tryParseInt(iters.getText().toString());
+                if(tempInt != -1){
+                    iterationsNum = tempInt;
+                }
+
+                tempInt = tryParseInt(restriction.getSelectedItem().toString());
+                if(tempInt != -1){
+                    restrictionNum = tempInt;
+                }
+
+                tempInt = tryParseInt(period.getSelectedItem().toString());
+                if(tempInt != -1){
+                    periodNum = tempInt;
+                }
+
+                String temp  = distance.getSelectedItem().toString();
+                temp = "." + temp.substring(0, temp.length() - 1);
+                double tempDBL = tryParseDouble(temp);
+                if(tempDBL != -1){
+                    distanceNum = tempDBL;
+                }
+
+                area.setVerts(num_verticiesNum);
+                area.invalidate();
+            }
+        });
+
+    }
+    public int tryParseInt(String s){
+        try{
+            return Integer.parseInt(s);
+        } catch(NumberFormatException nfe){
+            return -1;
+        }
     }
 
+    public double tryParseDouble(String s){
+        try{
+            return Double.parseDouble(s);
+        } catch(NumberFormatException nfe){
+            return -1;
+        }
+    }
 
 }
+
+
 //    public void Calculate(){
 //        for(int i = 0; i < iterationsNum; i++){
 //

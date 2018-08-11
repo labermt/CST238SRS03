@@ -34,6 +34,6 @@
         <item>Green</item>
     </string-array>
 
-    <string name="iter_lable">Number of Iteration</string>
-    <string name="vert_lable">Number of Verticies</string>
+    <string name="iter_lable">Number of <br></br>Iteration</string>
+    <string name="vert_lable">Number of <br></br>Verticies</string>
 </resources>
