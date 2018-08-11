@@ -78,8 +78,9 @@ public class DrawFragment extends Fragment {
                     final int s_start = value.getStart();
                     final int s_period = value.getPeriod();
                     final float s_percent = value.getPercent();
+                    final int s_color = value.getColor();
                     final String text = "Iterations: " + String.valueOf(s_iter) + " Percent: " + String.valueOf(s_percent) + " Vertices: " + String.valueOf(s_vertices)
-                            + " Start: " + String.valueOf(s_start) + " Period: " + String.valueOf(s_period);
+                            + " Start: " + String.valueOf(s_start) + " Period: " + String.valueOf(s_period) + " Color: " + String.valueOf(s_color);
                     textView_.setText(text);
                 }
             }

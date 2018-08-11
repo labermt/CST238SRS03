@@ -12,12 +12,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.Nullable;
+import android.widget.LinearLayout;
+import com.skydoves.colorpickerpreference.ColorEnvelope;
+import com.skydoves.colorpickerpreference.ColorListener;
+import com.skydoves.colorpickerpreference.ColorPickerView;
 
 
 /**
@@ -28,6 +33,7 @@ import android.support.annotation.Nullable;
  * Use the {@link SettingsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class SettingsFragment extends Fragment {
 
     private static final String TAG = "SettingsFragment";
@@ -100,8 +106,17 @@ public class SettingsFragment extends Fragment {
         final EditText VertEnter = view.findViewById(R.id.editTextVert);
         final EditText StartEnter = view.findViewById(R.id.editTextStart);
         final EditText PeriodEnter = view.findViewById(R.id.editTextPeriod);
+        final ColorPickerView colorPickerView = view.findViewById(R.id.colorPickerView);
 
         final SharedViewModel.UIData uiData = new SharedViewModel.UIData();
+
+        colorPickerView.setColorListener(new ColorListener() {
+            @Override
+            public void onColorSelected(ColorEnvelope colorEnvelope) {
+                uiData.setColor(colorEnvelope.getColor());
+                sharedViewModel_.uiDataLiveData_.postValue(uiData);
+            }
+        });
 
         PercentSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             float progressChangedValue = .5f;

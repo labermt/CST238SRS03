@@ -13,6 +13,7 @@ public class SharedViewModel extends ViewModel {
         private int iterations = 50;
         private int start = 2;
         private int period = 1;
+        private int color = 0;
 
 
         public int getVertices()
@@ -56,6 +57,15 @@ public class SharedViewModel extends ViewModel {
         public void setPeriod(final int value)
         {
             period = value;
+        }
+
+        public int getColor()
+        {
+            return color;
+        }
+        public void setColor(final int value)
+        {
+            color = value;
         }
     }
     public MutableLiveData<UIData> uiDataLiveData_ = new MutableLiveData<>();
