@@ -1,10 +1,12 @@
 package edu.oit.labermt.chaos;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ public class DrawFragment extends Fragment {
 
 
     private OnFragmentInteractionListener mListener;
+
 
     public DrawFragment() {
         // Required empty public constructor
@@ -55,6 +58,9 @@ public class DrawFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
+
         if (getArguments() != null) {
             //mParam1 = getArguments().getString(ARG_PARAM1);
             //mParam2 = getArguments().getString(ARG_PARAM2);
@@ -67,6 +73,7 @@ public class DrawFragment extends Fragment {
         // Inflate the layout for this fragment
         final View layout= inflater.inflate(R.layout.fragment_draw, container, false);
         textView_ = layout.findViewById(R.id.textViewDraw);
+        final Drawing drawing = layout.findViewById(R.id.draw);
         SharedViewModel sharedViewModel_;
         sharedViewModel_ = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         sharedViewModel_.uiDataLiveData_.observe(getActivity(), new Observer<SharedViewModel.UIData>() {
@@ -82,9 +89,16 @@ public class DrawFragment extends Fragment {
                     final String text = "Iterations: " + String.valueOf(s_iter) + " Percent: " + String.valueOf(s_percent) + " Vertices: " + String.valueOf(s_vertices)
                             + " Start: " + String.valueOf(s_start) + " Period: " + String.valueOf(s_period) + " Color: " + String.valueOf(s_color);
                     textView_.setText(text);
+                    drawing.vertices = s_vertices;
+                    drawing.iterations = s_iter;
+                    drawing.start = s_start;
+                    drawing.period = s_period;
+                    drawing.percent = s_percent;
+                    drawing.paint_.setColor(s_color);
                 }
             }
         });
+
         return layout;
     }
 

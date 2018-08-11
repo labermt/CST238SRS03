@@ -10,6 +10,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <edu.oit.labermt.chaos.Drawing
+        android:id="@+id/draw"
         android:layout_width="588dp"
         android:layout_height="585dp"
         android:layout_marginBottom="8dp"
