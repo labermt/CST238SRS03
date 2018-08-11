@@ -97,6 +97,11 @@ public class SettingsFragment extends Fragment {
         final SeekBar PercentSeekBar = view.findViewById(R.id.seekBar);
         final TextView PercentSeekBarValue = (TextView)view.findViewById(R.id.PercentTextView);
         final EditText IterEnter = view.findViewById(R.id.editTextIter);
+        final EditText VertEnter = view.findViewById(R.id.editTextVert);
+        final EditText StartEnter = view.findViewById(R.id.editTextStart);
+        final EditText PeriodEnter = view.findViewById(R.id.editTextPeriod);
+
+        final SharedViewModel.UIData uiData = new SharedViewModel.UIData();
 
         PercentSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             float progressChangedValue = .5f;
@@ -104,7 +109,6 @@ public class SettingsFragment extends Fragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressChangedValue = (float)progress/10;
                 PercentSeekBarValue.setText(String.valueOf(progressChangedValue));
-                SharedViewModel.UIData uiData = new SharedViewModel.UIData();
                 uiData.setPercent(progressChangedValue);
                 sharedViewModel_.uiDataLiveData_.postValue(uiData);
             }
@@ -134,7 +138,6 @@ public class SettingsFragment extends Fragment {
                     IterEnter.setError("You must enter a number");
                 } else {
                     IterEnter.setError(null);
-                    SharedViewModel.UIData uiData = new SharedViewModel.UIData();
                     String s_value = IterEnter.getText().toString();
                     uiData.setIterations(Integer.parseInt(s_value));
                     sharedViewModel_.uiDataLiveData_.postValue(uiData);
@@ -143,6 +146,86 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        VertEnter.addTextChangedListener( new TextWatcher()
+        {
+            int vertChanged = 3;
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (VertEnter.getText().toString().length() <= 0) {
+                    VertEnter.setError("You must enter a number");
+                } else {
+                    VertEnter.setError(null);
+                    String s_value = VertEnter.getText().toString();
+                    if (Integer.parseInt(s_value) < 3)
+                        VertEnter.setError("You must enter a number greater than 3");
+                    else {
+                        VertEnter.setError(null);
+                        uiData.setVertices(Integer.parseInt(s_value));
+                        sharedViewModel_.uiDataLiveData_.postValue(uiData);
+                    }
+                }
+            }
+        });
+
+        StartEnter.addTextChangedListener( new TextWatcher()
+        {
+            //int vertChanged = 3;
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (StartEnter.getText().toString().length() <= 0) {
+                    StartEnter.setError("You must enter a number");
+                } else {
+                    StartEnter.setError(null);
+                    String s_value = StartEnter.getText().toString();
+                    StartEnter.setError(null);
+                    uiData.setStart(Integer.parseInt(s_value));
+                    sharedViewModel_.uiDataLiveData_.postValue(uiData);
+
+                }
+            }
+        });
+
+        PeriodEnter.addTextChangedListener( new TextWatcher()
+        {
+            //int vertChanged = 3;
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (PeriodEnter.getText().toString().length() <= 0) {
+                    PeriodEnter.setError("You must enter a number");
+                } else {
+                    PeriodEnter.setError(null);
+                    String s_value = PeriodEnter.getText().toString();
+                    PeriodEnter.setError(null);
+                    uiData.setPeriod(Integer.parseInt(s_value));
+                    sharedViewModel_.uiDataLiveData_.postValue(uiData);
+
+                }
+            }
+        });
 
         sharedViewModel_.uiDataLiveData_.observe(getActivity(), new Observer<SharedViewModel.UIData>() {
             @Override
