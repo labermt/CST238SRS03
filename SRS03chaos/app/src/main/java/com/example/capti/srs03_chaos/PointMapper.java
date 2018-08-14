@@ -5,6 +5,8 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.net.wifi.p2p.WifiP2pManager;
+import android.os.Handler;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.graphics.Paint;
@@ -25,29 +27,29 @@ public class PointMapper extends View
     public static Point Center;
     public int Radius ;
     public int RadiusFactor = 3;
-    double ShapeVertCount = 20;
+    double ShapeVertCount = 10;
     Random rand;
     int DotSize = 10;
+    private Handler handler = new Handler();
 
-
-    public PointMapper(Context context) {
+    public PointMapper(Context context)
+    {
         super(context);
         init(null, 0);
-
         constructionSetup();
     }
 
-    public PointMapper(Context context, AttributeSet attribs) {
+    public PointMapper(Context context, AttributeSet attribs)
+    {
         super(context, attribs);
         init(attribs, 0);
-
         constructionSetup();
     }
 
-    public PointMapper(Context context, AttributeSet attrs, int defStyle) {
+    public PointMapper(Context context, AttributeSet attrs, int defStyle)
+    {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
-
         constructionSetup();
     }
 
@@ -56,6 +58,7 @@ public class PointMapper extends View
         paint_ = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint_.setStyle(Paint.Style.FILL);
     }
+
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         constructionSetup();
@@ -68,13 +71,17 @@ public class PointMapper extends View
         Center = new Point(Width/2,Height/2);
         Radius = Height / RadiusFactor;
         InitialPoints = new LinkedList<Point>();
+        handler.postDelayed(runnable, 100);
+        DrawnPoints = new LinkedList<Point>();
     }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
         Width = w;
         Height = h;
     }
+
     protected void CanvasPainter(Canvas canvas)
     {
         ShapePoints();
@@ -98,25 +105,54 @@ public class PointMapper extends View
 
     private void VerticyChaser(Canvas canvas)
     {
+        int Rando = rand.nextInt((int)ShapeVertCount);
+        Point Start = InitialPoints.get(Rando);
+        Point Current = Start;
+
         for(int i = 0; i < 100; ++i)
         {
-            int Rando = rand.nextInt((int)ShapeVertCount);
-            Point Start = InitialPoints.get(Rando);
+            Rando = rand.nextInt((int)ShapeVertCount);
+
+            if(i==0)
+            {
+                Current = Start;
+                DrawnPoints.addLast(Current);
+            }
+            else
+            {
+                Rando = rand.nextInt((int)ShapeVertCount);
+                Start = NextPointPicker(Current,InitialPoints.get(Rando));
+                DrawnPoints.add(Start);
+            }
+        }
             Point NextPoint = InitialPoints.get(rand.nextInt((int)ShapeVertCount));
 
-            DrawnPoints.add(NextPointPicker(Start,NextPoint));
+            for(Point p : DrawnPoints) {
 
-            canvas.drawCircle(DrawnPoints.getLast().x,DrawnPoints.getLast().y,DotSize,paint_);
+               //DrawnPoints.add(NextPointPicker(Start,NextPoint));
+                canvas.drawCircle(p.x,p.y,DotSize,paint_);
+            }
+
         }
 
-    }
+
+    private Runnable runnable = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            /* do what you need to do */
+            //DrawnPoints.add();
+            /* and here comes the "trick" */
+            handler.postDelayed(this, 100);
+        }
+    };
 
     private Point NextPointPicker(Point at, Point goingto)
     {
-        int rando = rand.nextInt((int)ShapeVertCount);
+        //int rando = rand.nextInt((int)ShapeVertCount);
 
         Point NextPosition = new Point();
-
         NextPosition.x = ((goingto.x - at.x) /2) + at.x;
         NextPosition.y = ((goingto.y - at.y) /2) + at.y;
 
