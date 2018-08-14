@@ -5,15 +5,16 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.graphics.Color;
 
 public class SharedViewModel extends ViewModel {
     public static class UIData {
         private int vertices = 3;
         private float percent = .5f;
-        private int iterations = 50;
+        private int iterations = 50000;
         private int start = 2;
         private int period = 1;
-        private int color = 0;
+        private int color = Color.BLUE;
 
 
         public int getVertices()

@@ -39,9 +39,9 @@
         android:text="TextView"
         custom:layout_constraintBottom_toBottomOf="parent"
         custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintHorizontal_bias="0.476"
+        custom:layout_constraintHorizontal_bias="0.619"
         custom:layout_constraintStart_toStartOf="parent"
         custom:layout_constraintTop_toTopOf="parent"
-        custom:layout_constraintVertical_bias="0.822" />
+        custom:layout_constraintVertical_bias="0.899" />
 
 </android.support.constraint.ConstraintLayout>

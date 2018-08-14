@@ -27,11 +27,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements DrawFragment.OnFragmentInteractionListener,
-        SettingsFragment.OnFragmentInteractionListener, DataComm
+        SettingsFragment.OnFragmentInteractionListener
         {
 
     private static final String TAG = "MainActivity";
-    private float Percent = .5f;
+    //private float Percent = .5f;
 
 
     /**
@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity
 
         //final SharedViewModel model = ViewModelProvider.of(this).get(SharedViewModel.class);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         // mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -77,13 +77,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void setMyPercent(float x){
-        this.Percent = x;
-    }
-
-    public float getMyPercent(){
-        return Percent;
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -110,8 +103,9 @@ public class MainActivity extends AppCompatActivity
     private void setupViewPager(ViewPager viewPager)
     {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new DrawFragment(), "Draw");
         adapter.addFragment(new SettingsFragment(), "Settings");
+        adapter.addFragment(new DrawFragment(), "Draw");
+
         viewPager.setAdapter(adapter);
     }
 

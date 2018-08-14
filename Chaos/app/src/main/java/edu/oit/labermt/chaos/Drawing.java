@@ -24,7 +24,7 @@ public class Drawing extends View {
     float percent = .5f;           // Hard coded for start
     int vertices = 8;               // Hard coded for start
     int iterations = 50;           // Hard coded for start
-    int myColor = Color.RED;
+    int myColor = Color.BLUE;
     int start = 2;                  // Hard coded for now
     int period = 2;                  // Hard coded for now
 
@@ -40,6 +40,7 @@ public class Drawing extends View {
         paint_.setColor(myColor);
         paint_.setStrokeWidth(getResources().getDimension(R.dimen.point_size));
         paint_.setTextAlign(Paint.Align.CENTER);
+        paint_.setColor(myColor);
     }
 
     protected void CalculateVertices(){

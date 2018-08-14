@@ -110,6 +110,7 @@ public class SettingsFragment extends Fragment {
 
         final SharedViewModel.UIData uiData = new SharedViewModel.UIData();
 
+
         colorPickerView.setColorListener(new ColorListener() {
             @Override
             public void onColorSelected(ColorEnvelope colorEnvelope) {
