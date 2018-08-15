@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DisplayChaosImage">
+
+    <!--<ImageView-->
+        <!--android:id="@+id/myimageview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+
+    <reyes.silverio.chaos.DisplayChaosImage
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</android.support.constraint.ConstraintLayout>
+<!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:custom="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--tools:context=".DisplayChaosImage">-->
+
+    <!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
+
+    <!--<reyes.silverio.chaos.DisplayChaosImage-->
+        <!--android:id="@+id/draw"-->
+        <!--android:layout_width="588dp"-->
+        <!--android:layout_height="585dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--custom:layout_constraintBottom_toBottomOf="parent"-->
+        <!--custom:layout_constraintEnd_toEndOf="parent"-->
+        <!--custom:layout_constraintHorizontal_bias="0.666"-->
+        <!--custom:layout_constraintStart_toStartOf="parent"-->
+        <!--custom:layout_constraintTop_toTopOf="parent"-->
+        <!--custom:layout_constraintVertical_bias="0.275" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/textViewDraw"-->
+        <!--android:layout_width="564dp"-->
+        <!--android:layout_height="24dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="TextView"-->
+        <!--custom:layout_constraintBottom_toBottomOf="parent"-->
+        <!--custom:layout_constraintEnd_toEndOf="parent"-->
+        <!--custom:layout_constraintHorizontal_bias="0.476"-->
+        <!--custom:layout_constraintStart_toStartOf="parent"-->
+        <!--custom:layout_constraintTop_toTopOf="parent"-->
+        <!--custom:layout_constraintVertical_bias="0.822" />-->
+
+<!--</android.support.constraint.ConstraintLayout>-->
