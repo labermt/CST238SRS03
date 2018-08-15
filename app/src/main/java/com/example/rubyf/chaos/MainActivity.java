@@ -8,15 +8,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import com.example.rubyf.chaos.Point;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
 
-    public ArrayList<Point> defaultPoints = new ArrayList();
-    public Stack points = new Stack();
+    public ArrayList<Point> defaultPoints;
+    public Stack<Point> points;
 
     public int num_verticiesNum = 3;
     public int iterationsNum = 100;
@@ -25,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
     public int periodNum = 0;
     public DrawArea area;
 
-    Random rand = new Random();
-    public int startPoint = rand.nextInt(3);
+    Random rand;
+    public int startPoint;
     private Spinner distance;
     private Spinner period;
     private Spinner restriction;
@@ -38,6 +40,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        defaultPoints = new ArrayList<>();
+        points = new Stack<>();
+
+        rand = new Random();
+        int startPoint = rand.nextInt(3);
+
         setContentView(R.layout.activity_main);
         distance = findViewById(R.id.distance);
         period = findViewById(R.id.period);
@@ -78,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 area.setVerts(num_verticiesNum);
+                area.setDefaultPoints();
                 area.invalidate();
             }
         });

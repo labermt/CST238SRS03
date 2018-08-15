@@ -22,9 +22,9 @@ public class DrawArea extends View {
     private Drawable mExampleDrawable;
     private Paint mPaint;
     private Point center = new Point();
-    public ArrayList<Point> defaultPoints = new ArrayList();
-    public Stack points = new Stack();
-    public int verts;
+    public ArrayList<Point> defaultPoints = new ArrayList<>();
+    public Stack<Point> points = new Stack<>();
+    public int verts = 1;
 
     public DrawArea(Context context) {
         super(context);
@@ -90,12 +90,6 @@ public class DrawArea extends View {
             canvas.drawPoint(defaultPoints.get(i).getX(), defaultPoints.get(i).getY(), mPaint);
         }
 
-        // Draw the example drawable on top of the text.
-        if (mExampleDrawable != null) {
-            mExampleDrawable.setBounds(paddingLeft, paddingTop,
-                    paddingLeft + contentWidth, paddingTop + contentHeight);
-            mExampleDrawable.draw(canvas);
-        }
     }
 
     public int getExampleColor() {
@@ -110,23 +104,23 @@ public class DrawArea extends View {
     public Point getCenter() {
         return center;
     }
-
-    public float getExampleDimension() {
-        return mExampleDimension;
-    }
-
-    public void setExampleDimension(float exampleDimension) {
-        mExampleDimension = exampleDimension;
-        invalidatePaintAndMeasurements();
-    }
-
-    public Drawable getExampleDrawable() {
-        return mExampleDrawable;
-    }
-
-    public void setExampleDrawable(Drawable exampleDrawable) {
-        mExampleDrawable = exampleDrawable;
-    }
+//
+//    public float getExampleDimension() {
+//        return mExampleDimension;
+//    }
+//
+//    public void setExampleDimension(float exampleDimension) {
+//        mExampleDimension = exampleDimension;
+//        invalidatePaintAndMeasurements();
+//    }
+//
+//    public Drawable getExampleDrawable() {
+//        return mExampleDrawable;
+//    }
+//
+//    public void setExampleDrawable(Drawable exampleDrawable) {
+//        mExampleDrawable = exampleDrawable;
+//    }
 
     public void setVerts(int numVerts){
         verts = numVerts;
