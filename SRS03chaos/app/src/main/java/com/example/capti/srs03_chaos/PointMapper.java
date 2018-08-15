@@ -26,11 +26,12 @@ public class PointMapper extends View
     int Width;
     public static Point Center;
     public int Radius ;
-    public int RadiusFactor = 3;
-    double ShapeVertCount = 10;
+    public int RadiusFactor = 2;
+    double ShapeVertCount = 3;
     Random rand;
-    int DotSize = 10;
+    int DotSize = 4;
     private Handler handler = new Handler();
+    float Rotation = 2;
 
     public PointMapper(Context context)
     {
@@ -97,8 +98,8 @@ public class PointMapper extends View
         for(double i = 1.0; i <= ShapeVertCount; i++)
         {
             double region = (i/ShapeVertCount);
-            double y = Math.sin((Math.PI * 2)* region);
-            double x = Math.cos((Math.PI * 2)* region);
+            double y = Math.sin(((Math.PI * 2))* region);
+            double x = Math.cos(((Math.PI * 2))* region);
             InitialPoints.add(new Point( (int)(Center.x + (Radius * x)), (int)(Center.y + (Radius * y))));
         }
     }
@@ -109,7 +110,7 @@ public class PointMapper extends View
         Point Start = InitialPoints.get(Rando);
         Point Current = Start;
 
-        for(int i = 0; i < 100; ++i)
+        for(int i = 0; i < 50000; ++i)
         {
             Rando = rand.nextInt((int)ShapeVertCount);
 
@@ -121,6 +122,7 @@ public class PointMapper extends View
             else
             {
                 Rando = rand.nextInt((int)ShapeVertCount);
+                Current = Start;
                 Start = NextPointPicker(Current,InitialPoints.get(Rando));
                 DrawnPoints.add(Start);
             }
